@@ -101,25 +101,20 @@
 
 ---
 
-## Recommendation
+## Decision
 
-**Start with Mastodon (wien.rocks):**
-- Instance-based locality provides built-in geographic filtering (must-have requirement)
-- Curated local Vienna content with no additional geo-filtering needed
-- Mature Python library handles auth and rate limiting automatically
-- Streaming API provides real-time data
+**Mastodon (wien.rocks)** and **Reddit (r/wien + r/austria)** are the two data sources for the TalkBout MVP.
 
-**Follow with Reddit (r/vienna, r/austria):**
-- Subreddit-based locality provides structural geographic filtering
-- Well-maintained PRAW library handles complexity
-- Active Vienna/Austria communities
+| Source | Geo-Filtering | Real-Time | Volume | Cost | Implementation |
+|--------|--------------|-----------|--------|------|----------------|
+| **Mastodon (wien.rocks)** | Instance-based locality | True SSE push, sub-second latency | ~248 posts/day | Free | Easy — Mastodon.py |
+| **Reddit (r/wien + r/austria)** | Subreddit-based locality | Polling via PRAW, 2-16 sec latency | ~100-800 items/day | Free | Moderate — OAuth + PRAW |
 
-**Add News/RSS feeds as a third source:**
-- Vienna-specific feeds from orf.at, krone.at, kurier.at, vienna.at provide inherently geo-filtered content
-- No authentication needed; simple polling with conditional HTTP requests
-- ~130-250 Vienna-relevant articles/day; editorially curated, high-quality signal
-- News stories often set the agenda for social media discussion (leading indicator)
+Both meet the must-have geolocation filtering requirement through structural locality. Both are free, have mature Python libraries, and support real-time or near-real-time ingestion.
 
-**Bluesky Jetstream is not recommended at this time** despite its technical simplicity, because it lacks any form of geolocation filtering — a must-have requirement for TalkBout data sources.
+**News/RSS feeds** are a strong candidate for a third source post-MVP (Vienna-specific feeds from orf.at, krone.at, kurier.at, vienna.at; ~130-250 articles/day; no auth needed). See `research/austrian-news-rss.md`.
 
-These three source categories (Mastodon + Reddit + News/RSS) provide a **real-time, free, low-complexity multi-source pipeline** with reliable Vienna relevance through structural geographic filtering and inherently local content — the fastest path to a working prototype.
+**Not selected for MVP:**
+- **Bluesky** — no geolocation filtering at any level (see `research/bluesky-geolocation.md`)
+- **Google Trends** — Austria-level only for real-time trends, fragile tooling (see `research/google-trends-research.md`)
+- **Local forums** — no accessible APIs, high legal risk (see `research/local-forums-research.md`)

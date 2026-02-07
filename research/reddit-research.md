@@ -163,7 +163,7 @@ Reddit's value is in the quality and depth of discussion (longer comments, more 
 | **API stability** | Low | History of unilateral API changes |
 | **Implementation** | Moderate | OAuth required; PRAW simplifies polling |
 
-**Recommendation:** Reddit is a viable data source for TalkBout. r/wien provides structural geographic filtering (must-have requirement met). Best used as a **primary or secondary source** alongside Mastodon (wien.rocks) for a dual-source pipeline.
+**Decision:** Reddit is selected as one of the two MVP data sources. r/wien provides structural geographic filtering (must-have requirement met). Paired with Mastodon (wien.rocks) as the other source for a dual-source pipeline with complementary strengths — Reddit provides higher volume and deeper discussion threads, Mastodon provides true push streaming.
 
 ## Sources
 

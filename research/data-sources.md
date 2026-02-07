@@ -2,7 +2,15 @@
 
 Research into potential data sources for TalkBout — a real-time tag cloud showing what Vienna is talking about.
 
-## MVP Data Sources
+## Decision: MVP Data Sources
+
+**Mastodon (wien.rocks)** and **Reddit (r/wien + r/austria)** are the two data sources for the TalkBout MVP.
+
+Both meet the must-have geolocation filtering requirement through structural locality — instance-based for Mastodon, subreddit-based for Reddit. Both are free, have mature Python libraries, and support real-time or near-real-time ingestion. Together they provide a dual-source pipeline with complementary strengths: Mastodon offers true push streaming with sub-second latency; Reddit offers higher volume and deeper discussion threads.
+
+News/RSS feeds are a strong candidate for a third source post-MVP. Bluesky, Google Trends, and local forums are not suitable at this time (see individual research files for details).
+
+## Data Sources Research
 
 ### Social Media Platforms
 
