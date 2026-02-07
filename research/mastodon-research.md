@@ -177,7 +177,7 @@ Key streaming methods:
 | **Implementation** | Easy | Mastodon.py handles everything; OAuth straightforward |
 | **Legal risk** | Low | Aggregated display; contact Fediverse Foundation proactively |
 
-**Recommendation:** Mastodon via wien.rocks is a viable, free, low-complexity data source with true real-time streaming and strong geographic signal through instance-based locality. Volume is limited — best used alongside Reddit (r/wien) as a dual-source pipeline.
+**Decision:** Mastodon via wien.rocks is selected as one of the two MVP data sources. It provides true real-time streaming, strong geographic signal through instance-based locality, and zero cost. Paired with Reddit (r/wien + r/austria) as the second source to compensate for limited volume.
 
 ## Sources
 
