@@ -6,12 +6,17 @@ TalkBout is a real-time tag cloud that shows what topics people are posting, wri
 
 ## MVP Scope
 
-### Core Feature: Live Tag Cloud
+### Core Feature: Living Tag Cloud
 
-- A **tag cloud** displaying specific trending terms (e.g. "Donauinselfest", "U2 Störung", "Wiener Schnitzel") — not broad categories
-- **Tag size** reflects the volume of posts and mentions — more activity means a bigger tag
+- The tag cloud shows **exactly 20 topics** at any given time — specific trending terms (e.g. "Donauinselfest", "U2 Störung", "Wiener Schnitzel"), not broad categories
+- Topics have a **lifecycle** — they morph over time:
+  1. **Enter**: A new topic fades into the tag cloud when it starts gaining traction
+  2. **Grow**: As more people post and comment about it, the tag grows in size
+  3. **Shrink**: As Vienna moves on, the topic gradually shrinks
+  4. **Disappear**: Once the conversation dies down, the topic fades out — making room for a new one
+- This creates a **living, breathing visualization** where the 20 topics are constantly evolving as the city's conversation shifts
 - **Single color** design for the MVP
-- Trending terms are **extracted by an LLM** (Claude) from raw social media data
+- Topics are **extracted by an LLM** (Claude) from raw social media data
 - The tag cloud **updates live** in real time as new data streams in
 
 ### Time Slider
