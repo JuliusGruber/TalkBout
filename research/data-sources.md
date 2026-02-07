@@ -11,7 +11,7 @@ Research into potential data sources for TalkBout — a real-time tag cloud show
 | X (Twitter) | X API v2 | Filtered Stream endpoint | Geo-filtering for Vienna available; rate limits vary by access tier |
 | Reddit | Reddit API | Subreddit streaming via PRAW | r/vienna, r/austria — useful for local discussion threads |
 | Mastodon | Mastodon API | Streaming API built-in | vienna.social instance is a strong local source |
-| Bluesky | Bluesky AT Protocol | Firehose / Jetstream | Growing user base; geo-filtering requires post-processing |
+| Bluesky | Bluesky AT Protocol | Firehose / Jetstream | Growing user base (~42M users); no native geo-filtering — community location schemas in development but not yet usable (see `research/bluesky-geolocation.md`) |
 
 ### Rate Limits by Platform
 
@@ -77,7 +77,7 @@ Source: [Mastodon Rate Limits Docs](https://docs.joinmastodon.org/api/rate-limit
 - Firehose: full binary stream of all network events; sustained **2,000+ events/sec** across network; ~232 GB/day at peak
 - **Jetstream** (recommended): lightweight JSON alternative; ~850 MB/day for all posts; zstd compression reduces by ~56%; 4 official public instances available; **no authentication required**
 - Jetstream data is **not self-authenticating** (no cryptographic signatures) — acceptable tradeoff for read-only ingestion
-- Geo-filtering must be done post-processing (no native geo support)
+- Geo-filtering must be done post-processing (no native geo support); community `community.lexicon.location.*` schemas are in development but not yet production-ready
 
 Source: [Bluesky Rate Limits](https://docs.bsky.app/docs/advanced-guides/rate-limits), [Bluesky Firehose](https://docs.bsky.app/docs/advanced-guides/firehose), [Jetstream](https://github.com/bluesky-social/jetstream)
 

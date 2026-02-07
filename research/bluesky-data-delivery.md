@@ -224,7 +224,7 @@ Individual Jetstream messages are small:
 
 ### Limitations to Plan For
 
-- **No geo-filtering:** Bluesky has no native location data. Vienna relevance must be inferred from content.
+- **No geo-filtering:** Bluesky has no native location data. Vienna relevance must be inferred from content. Community-driven `community.lexicon.location.*` schemas are in development (funded by the AT Protocol Community Fund) but not yet in production or widely adopted. See `research/bluesky-geolocation.md` for details.
 - **Not self-authenticating:** Jetstream strips cryptographic proofs. Data could theoretically be tampered with by the Jetstream instance. Acceptable for TalkBout's use case.
 - **Not formally part of AT Protocol:** Bluesky operates Jetstream as a convenience service. They plan to eventually fold its advantages into the core protocol firehose, which could mean API changes.
 - **No SLA on public instances:** The 4 public instances are best-effort. For production reliability, consider running a private Jetstream instance (it's open source).
