@@ -362,15 +362,15 @@ Check off each item as it is completed. A phase is only done when all its items 
 - [x] Write tests: listener callback handling, HTML stripping, post filtering, field validation
 - [x] Write tests: mock SSE stream delivering sample statuses end-to-end
 
-### Phase 3: Post Buffer
+### Phase 3: Post Buffer ✓
 
-- [ ] Implement thread-safe in-memory buffer (use `queue.Queue` or `threading.Lock`)
-- [ ] Implement configurable time window with timer-based flush
-- [ ] Handle edge cases: empty batches (skip), oversized batches (cap)
-- [ ] Include batch metadata (window start/end, post count, source identifier)
-- [ ] Write tests: buffer accumulation, window expiry, empty window handling
-- [ ] Write tests: thread safety — concurrent writes and reads
-- [ ] Write tests: batch metadata correctness
+- [x] Implement thread-safe in-memory buffer (use `queue.Queue` or `threading.Lock`)
+- [x] Implement configurable time window with timer-based flush
+- [x] Handle edge cases: empty batches (skip), oversized batches (cap)
+- [x] Include batch metadata (window start/end, post count, source identifier)
+- [x] Write tests: buffer accumulation, window expiry, empty window handling
+- [x] Write tests: thread safety — concurrent writes and reads
+- [x] Write tests: batch metadata correctness
 
 ### Phase 4: Topic Extraction (LLM)
 
