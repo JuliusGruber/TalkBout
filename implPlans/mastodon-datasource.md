@@ -350,17 +350,17 @@ Check off each item as it is completed. A phase is only done when all its items 
 - [x] Document the OAuth flow steps (authorization code exchange, token storage)
 - [x] Write tests: config loading, credential validation, `.env` parsing
 
-### Phase 2: Stream Client (Ingestion)
+### Phase 2: Stream Client (Ingestion) ✓
 
-- [ ] Define Python package structure (`talkbout/` package, module layout)
-- [ ] Define a `BaseDatasource` abstract interface for future datasource reuse
-- [ ] Install `Mastodon.py` and `beautifulsoup4` (with explicit parser choice)
-- [ ] Implement `StreamListener` subclass with `on_update()` and `on_abort()`
-- [ ] Implement HTML-to-plain-text stripping
-- [ ] Implement post filtering (reblogs, empty content, sensitive — make a definitive decision)
-- [ ] Implement input validation for status fields (handle `null` language, missing content)
-- [ ] Write tests: listener callback handling, HTML stripping, post filtering, field validation
-- [ ] Write tests: mock SSE stream delivering sample statuses end-to-end
+- [x] Define Python package structure (`talkbout/` package, module layout)
+- [x] Define a `BaseDatasource` abstract interface for future datasource reuse
+- [x] Install `Mastodon.py` and `beautifulsoup4` (with explicit parser choice)
+- [x] Implement `StreamListener` subclass with `on_update()` and `on_abort()`
+- [x] Implement HTML-to-plain-text stripping
+- [x] Implement post filtering (reblogs, empty content, sensitive — make a definitive decision)
+- [x] Implement input validation for status fields (handle `null` language, missing content)
+- [x] Write tests: listener callback handling, HTML stripping, post filtering, field validation
+- [x] Write tests: mock SSE stream delivering sample statuses end-to-end
 
 ### Phase 3: Post Buffer
 
