@@ -85,29 +85,36 @@ def main() -> None:
         from talkbout.config import load_config
 
         config = load_config()
-        ds = MastodonDatasource(config.instance_url, config.access_token)
-        print(f"Streaming posts from {ds.source_id}... (Ctrl+C to stop)\n")
-        import threading
-
-        stop_event = threading.Event()
-
-        def on_signal(sig, frame):
-            print("\nStopping stream...")
-            ds.stop()
-            stop_event.set()
-
-        signal.signal(signal.SIGINT, on_signal)
-        signal.signal(signal.SIGTERM, on_signal)
-
-        ds.start(print_post)
-        stop_event.wait()
-    except (ValueError, Exception):
-        # No credentials — fall back to REST API polling
+    except (ValueError, ImportError) as exc:
+        # No credentials or dotenv not installed — fall back to REST API polling
         instance = INSTANCE_URL
         domain = instance.replace("https://", "").replace("http://", "")
         source = f"mastodon:{domain}"
-        print(f"No .env credentials found — polling public timeline from {instance}")
+        print(f"No .env credentials found ({exc}) — polling public timeline from {instance}")
         poll_public_timeline(instance, source)
+        return
+
+    import threading
+
+    ds = MastodonDatasource(config.instance_url, config.access_token)
+    stop_event = threading.Event()
+
+    def on_stream_error(err: Exception) -> None:
+        print(f"\n  [stream error] {err}")
+        stop_event.set()
+
+    def on_signal(sig, frame):
+        print("\nStopping stream...")
+        ds.stop()
+        stop_event.set()
+
+    signal.signal(signal.SIGINT, on_signal)
+    signal.signal(signal.SIGTERM, on_signal)
+
+    print(f"Streaming posts from {ds.source_id}... (Ctrl+C to stop)\n")
+    ds.start(print_post, on_error=on_stream_error)
+    stop_event.wait()
+    ds.stop()
 
 
 if __name__ == "__main__":

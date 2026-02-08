@@ -155,10 +155,16 @@ class TalkBoutStreamListener(StreamListener):
     through validation → filtering → parsing → callback.
     """
 
-    def __init__(self, on_post: Callable[[Post], None], source: str) -> None:
+    def __init__(
+        self,
+        on_post: Callable[[Post], None],
+        source: str,
+        on_error: Callable[[Exception], None] | None = None,
+    ) -> None:
         super().__init__()
         self._on_post = on_post
         self._source = source
+        self._on_error = on_error
 
     def on_update(self, status: Any) -> None:
         """Called by Mastodon.py for each new status on the stream."""
@@ -175,6 +181,8 @@ class TalkBoutStreamListener(StreamListener):
     def on_abort(self, err: Exception) -> None:
         """Called by Mastodon.py when the stream connection is lost."""
         logger.error("Mastodon stream aborted: %s", err)
+        if self._on_error is not None:
+            self._on_error(err)
 
 
 # ---------------------------------------------------------------------------
@@ -193,6 +201,7 @@ class MastodonDatasource(BaseDatasource):
         self._instance_url = instance_url.rstrip("/")
         self._access_token = access_token
         self._handle: Any | None = None
+        self._on_error: Callable[[Exception], None] | None = None
 
     @property
     def source_id(self) -> str:
@@ -200,13 +209,24 @@ class MastodonDatasource(BaseDatasource):
         domain = self._instance_url.replace("https://", "").replace("http://", "")
         return f"mastodon:{domain}"
 
-    def start(self, on_post: Callable[[Post], None]) -> None:
-        """Start streaming from the Mastodon public:local timeline."""
+    def start(
+        self,
+        on_post: Callable[[Post], None],
+        on_error: Callable[[Exception], None] | None = None,
+    ) -> None:
+        """Start streaming from the Mastodon public:local timeline.
+
+        Args:
+            on_post: Callback invoked for each incoming post.
+            on_error: Optional callback invoked when the stream connection
+                      is lost or encounters an error.
+        """
+        self._on_error = on_error
         client = Mastodon(
             access_token=self._access_token,
             api_base_url=self._instance_url,
         )
-        listener = TalkBoutStreamListener(on_post, self.source_id)
+        listener = TalkBoutStreamListener(on_post, self.source_id, on_error)
         self._handle = client.stream_public(
             listener,
             local=True,

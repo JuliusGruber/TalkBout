@@ -41,11 +41,17 @@ class BaseDatasource(ABC):
     """
 
     @abstractmethod
-    def start(self, on_post: Callable[[Post], None]) -> None:
+    def start(
+        self,
+        on_post: Callable[[Post], None],
+        on_error: Callable[[Exception], None] | None = None,
+    ) -> None:
         """Start receiving posts from the datasource.
 
         Args:
             on_post: Callback invoked for each incoming post.
+            on_error: Optional callback invoked when the stream encounters
+                      an error or the connection is lost.
         """
 
     @abstractmethod
