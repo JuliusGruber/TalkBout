@@ -372,18 +372,18 @@ Check off each item as it is completed. A phase is only done when all its items 
 - [x] Write tests: thread safety — concurrent writes and reads
 - [x] Write tests: batch metadata correctness
 
-### Phase 4: Topic Extraction (LLM)
+### Phase 4: Topic Extraction (LLM) ✓
 
-- [ ] Design and document the extraction prompt (German-language handling, concrete topics)
-- [ ] Implement Claude API call using Anthropic Python SDK
-- [ ] Choose model (Haiku vs. Sonnet) and document the decision
-- [ ] Use structured output (tool use / JSON mode) instead of free-text JSON parsing
-- [ ] Implement response parsing and validation (valid JSON, non-empty topic list)
-- [ ] Implement error handling: retry logic (with backoff), behavior on repeated failures
-- [ ] Define what happens to a batch when the LLM call fails (drop / re-queue / merge)
-- [ ] Write tests: prompt construction with various batch inputs
-- [ ] Write tests: response parsing — valid JSON, malformed JSON, empty response
-- [ ] Write tests: retry logic and error handling (mock API failures, timeouts, rate limits)
+- [x] Design and document the extraction prompt (German-language handling, concrete topics)
+- [x] Implement Claude API call using Anthropic Python SDK
+- [x] Choose model (Haiku vs. Sonnet) and document the decision
+- [x] Use structured output (tool use / JSON mode) instead of free-text JSON parsing
+- [x] Implement response parsing and validation (valid JSON, non-empty topic list)
+- [x] Implement error handling: retry logic (with backoff), behavior on repeated failures
+- [x] Define what happens to a batch when the LLM call fails (drop / re-queue / merge)
+- [x] Write tests: prompt construction with various batch inputs
+- [x] Write tests: response parsing — valid JSON, malformed JSON, empty response
+- [x] Write tests: retry logic and error handling (mock API failures, timeouts, rate limits)
 
 ### Phase 5: Topic Store & State Management
 
