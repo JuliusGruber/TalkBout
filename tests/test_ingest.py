@@ -629,8 +629,8 @@ class TestBuildPipeline:
         monkeypatch.delenv("MASTODON_CLIENT_ID", raising=False)
         monkeypatch.delenv("MASTODON_CLIENT_SECRET", raising=False)
         monkeypatch.delenv("MASTODON_ACCESS_TOKEN", raising=False)
-        # Provide a nonexistent .env so no file is loaded
-        monkeypatch.setenv("DOTENV_PATH", "/nonexistent/.env")
+        # Prevent load_dotenv from re-loading the real .env file
+        monkeypatch.setattr("viennatalksbout.config.load_dotenv", lambda *a, **kw: None)
 
         with pytest.raises(ValueError, match="Invalid Mastodon configuration"):
             build_pipeline()
@@ -643,6 +643,8 @@ class TestBuildPipeline:
         monkeypatch.setenv("MASTODON_CLIENT_SECRET", "test_client_secret")
         monkeypatch.setenv("MASTODON_ACCESS_TOKEN", "test_access_token")
         monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        # Prevent load_dotenv from re-loading the real .env file
+        monkeypatch.setattr("viennatalksbout.config.load_dotenv", lambda *a, **kw: None)
 
         with pytest.raises(ValueError, match="Invalid extractor configuration"):
             build_pipeline()
