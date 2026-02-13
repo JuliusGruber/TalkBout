@@ -396,6 +396,32 @@ class TopicStore:
 
         return topics
 
+    def restore_from_snapshot(self, path: str | Path) -> int:
+        """Populate the in-memory store from a snapshot file.
+
+        Loads topics from the given snapshot and inserts them into the
+        store, replacing any existing topics.  This is intended to be
+        called once at startup so the web API has topics to serve
+        immediately while the pipeline catches up with live data.
+
+        Args:
+            path: Path to the JSON snapshot file.
+
+        Returns:
+            Number of topics restored.
+
+        Raises:
+            FileNotFoundError: If the snapshot file does not exist.
+            ValueError: If the snapshot format is invalid.
+        """
+        topics = self.load_snapshot(path)
+        with self._lock:
+            self._topics.clear()
+            for t in topics:
+                self._topics[t.normalized_name] = t
+        logger.info("Restored %d topics from snapshot: %s", len(topics), path)
+        return len(topics)
+
     def cleanup_snapshots(self, now: datetime | None = None) -> int:
         """Remove snapshot files older than the retention period.
 

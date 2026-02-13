@@ -422,6 +422,21 @@ def build_pipeline() -> IngestionPipeline:
         retention_hours=pipeline_config["retention_hours"],
     )
 
+    # Seed the store from the most recent snapshot so the web API has
+    # topics to serve immediately while the pipeline catches up.
+    snapshot_dir = Path(pipeline_config["snapshot_dir"])
+    if snapshot_dir.exists():
+        snapshots = sorted(snapshot_dir.glob("topics_*.json"))
+        if snapshots:
+            latest = snapshots[-1]
+            try:
+                count = store.restore_from_snapshot(latest)
+                logger.info(
+                    "Seeded store with %d topics from %s", count, latest
+                )
+            except (ValueError, FileNotFoundError) as exc:
+                logger.warning("Could not restore snapshot %s: %s", latest, exc)
+
     health = HealthMonitor(
         stale_stream_seconds=pipeline_config["stale_stream_seconds"],
     )
