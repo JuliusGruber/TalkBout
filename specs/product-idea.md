@@ -4,6 +4,8 @@
 
 ViennaTalksBout is a real-time tag cloud that shows what topics people are posting, writing, and commenting about online — starting with Vienna. Anyone can open the web app and instantly see what the city is talking about right now.
 
+**The focus is on user posts, not media articles.** ViennaTalksBout surfaces what regular people — residents, commuters, visitors — are actually saying on social media. It is not a news aggregator. The value lies in capturing the authentic, grassroots conversation of a city: what real users post, share, and comment about. Media coverage may overlap with these topics, but the signal comes from the people, not the press.
+
 ## MVP Scope
 
 ### Core Feature: Living Tag Cloud
@@ -27,14 +29,15 @@ ViennaTalksBout is a real-time tag cloud that shows what topics people are posti
 
 ### Data Sources (MVP)
 
-- **Social media platforms** — live streaming from APIs for real-time data ingestion
+- **Social media platforms** — live streaming from APIs for real-time data ingestion (user-generated posts only)
 
 ### Data Sources (Future)
 
-- News sites and blogs
-- Local forums and community platforms
-- Google Trends and search data
-- Other online activity sources
+- Local forums and community platforms (user-generated content)
+- Google Trends and search data (reflecting what people search for)
+- Other user-generated content sources
+
+Note: News/media articles are explicitly **out of scope**. If media sources are ever added, they would only serve to supplement or validate user-driven trends — never as a primary signal.
 
 ### Target Region
 
